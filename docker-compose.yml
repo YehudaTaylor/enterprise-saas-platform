@@ -1,17 +1,16 @@
 version: '3.8'
 
 services:
-  # Uncomment and configure when ready to containerize the app
-  # app:
-  #   build: .
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     - DATABASE_URL=postgresql://postgres:password@db:5432/saas_db
-  #     - NEXTAUTH_URL=http://localhost:3000
-  #     - NEXTAUTH_SECRET=development-secret
-  #   depends_on:
-  #     - db
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/saas_db
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=development-secret
+    depends_on:
+      - db
 
   db:
     image: postgres:15
@@ -21,7 +20,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: saas_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:

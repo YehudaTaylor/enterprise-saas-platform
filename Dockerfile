@@ -9,6 +9,9 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Create public directory if it doesn't exist
+RUN mkdir -p public
+
 # Generate Prisma client
 RUN npx prisma generate
 
@@ -29,6 +32,8 @@ RUN adduser --system --uid 1001 nextjs
 # Copy built application
 COPY --from=base /app/.next/standalone ./
 COPY --from=base /app/.next/static ./.next/static
+
+# Copy public directory
 COPY --from=base /app/public ./public
 
 # Set permissions
